@@ -1,7 +1,9 @@
 import styled from 'styled-components/native';
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
+import {FlatList} from 'react-native';
 import {Feather} from '@expo/vector-icons';
-import {getStatusBarHeight} from 'react-native-iphone-x-helper';
+import {getStatusBarHeight, getBottomSpace} from 'react-native-iphone-x-helper';
+import {DataProps} from '.';
 
 export const Container = styled.View`
   flex: 1;
@@ -69,3 +71,25 @@ export const CardHighlights = styled.ScrollView.attrs({
   width: 100%;
   margin-top: ${RFPercentage(20)}px;
 `;
+
+export const ViewTransition = styled.View`
+  flex: 1;
+  margin-top: ${RFPercentage(13)}px;
+  padding: 0 20px;
+`;
+
+export const TitleTransition = styled.Text`
+  font-family: ${({theme}) => theme.fonts.regular};
+  font-size: ${RFValue(18)}px;
+  line-height: ${RFValue(27)}px;
+  color: ${({theme}) => theme.colors.titleDark};
+`;
+
+export const TransitionCardList = styled(
+  FlatList as new () => FlatList<DataProps>,
+  /*por estar usando react native com styled componente e desejo 
+  estilizar pelo próprio styled component preciso fazer essa tipagem*/
+).attrs({
+  contentContainerStyle: {paddingBottom: getBottomSpace()},
+  showsVerticalScrollIndicator: false,
+})``;

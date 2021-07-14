@@ -9,16 +9,34 @@ import {
   Description,
 } from './styles';
 
-export function CardHighlight() {
+type CardHighlightProps = {
+  title: string;
+  type: 'up' | 'down' | 'total';
+  amount: string;
+  description: string;
+};
+
+const icon = {
+  up: 'arrow-up-circle',
+  down: 'arrow-down-circle',
+  total: 'dollar-sign',
+};
+
+export function CardHighlight({
+  title,
+  type,
+  amount,
+  description,
+}: CardHighlightProps) {
   return (
-    <Container>
+    <Container type={type}>
       <Header>
-        <Title>Entrada</Title>
-        <Icon name="arrow-up-circle" />
+        <Title type={type}>{title}</Title>
+        <Icon name={icon[type]} type={type} />
       </Header>
       <Footer>
-        <Amount>R$ 17.400,00</Amount>
-        <Description>Última entrada dia 13 de abril</Description>
+        <Amount type={type}>{amount}</Amount>
+        <Description type={type}>{description}</Description>
       </Footer>
     </Container>
   );

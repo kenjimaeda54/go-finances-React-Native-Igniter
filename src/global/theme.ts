@@ -11,6 +11,7 @@ export default {
     title: '#363F5F',
     background: '#F0F2F5',
     subTitle: '#969CB3',
+    titleDark: '#000',
   },
   fonts: {
     regular: 'Poppins_400Regular',
