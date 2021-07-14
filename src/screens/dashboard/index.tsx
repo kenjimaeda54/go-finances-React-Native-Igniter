@@ -1,4 +1,5 @@
 import React from 'react';
+import {CardHighlight} from '../../components/card-highlight';
 import {
   Container,
   Header,
@@ -9,6 +10,7 @@ import {
   UserGreeting,
   UserName,
   Icon,
+  CardHighlights,
 } from './styles';
 
 export function Dashboard() {
@@ -30,6 +32,11 @@ export function Dashboard() {
           <Icon name="power" />
         </UserWrap>
       </Header>
+      <CardHighlights>
+        <CardHighlight />
+        <CardHighlight />
+        <CardHighlight />
+      </CardHighlights>
     </Container>
   );
 }
