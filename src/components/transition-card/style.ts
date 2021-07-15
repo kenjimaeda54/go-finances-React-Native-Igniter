@@ -13,6 +13,7 @@ export const Container = styled.View`
   width: ${RFValue(327)}px;
   padding: 17px 24px;
   margin-bottom: 16px;
+  border-radius: 5px;
 `;
 
 export const TitleCard = styled.Text`

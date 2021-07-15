@@ -27,6 +27,7 @@ export const Container = styled.View<TypeProps>`
   padding: 19px 23px;
   padding-bottom: 42px;
   margin-left: 16px;
+  border-radius: 5px;
 
   /*por ser em cascata o padding bottom vai subscrever o  valor em padding */
   /*uma boa pratica e deixar sem o height,assim a div tem altura de acordo com
