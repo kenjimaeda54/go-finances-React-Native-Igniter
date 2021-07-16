@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {CategorySelected} from '../../components/category-selected';
 import {ButtonForm} from '../../components/form/button-form';
 import {TextInputForm} from '../../components/form/text-input';
 import {TransitionButton} from '../../components/transition-button';
@@ -41,6 +42,7 @@ export function Register() {
               type="down"
             />
           </ButtonTransition>
+          <CategorySelected title="Categoria" />
         </FieldsForm>
 
         <ButtonForm title="Enviar" />
