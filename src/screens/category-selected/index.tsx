@@ -13,17 +13,40 @@ import {
   Footer,
 } from './styles';
 
-export function CategorySelected() {
+type Category = {
+  key: string;
+  name: string;
+};
+
+type CategorySelectedProps = {
+  setCategory: (
+    category: Category,
+  ) => void /* ao inves de passar React.State posso passsar assim */;
+  closeModal: () => void;
+  category: Category;
+};
+
+export function CategorySelected({
+  setCategory,
+  closeModal,
+  category,
+}: CategorySelectedProps) {
+  function categorySelected(item: Category) {
+    setCategory(item);
+  }
+
   return (
     <Container>
       <Header>
-        <Title>Cadastro</Title>
+        <Title>Categorias</Title>
       </Header>
       <FlatList
         data={categories}
         keyExtractor={item => item.key}
         renderItem={({item}) => (
-          <Category>
+          <Category
+            isAcitivy={item.key === category.key}
+            onPress={() => categorySelected(item)}>
             <Icon name={item.icon} />
             <Name>{item.name}</Name>
           </Category>
@@ -32,7 +55,7 @@ export function CategorySelected() {
         ListFooterComponent={() => <Separator />}
       />
       <Footer>
-        <ButtonForm title="Enviar" />
+        <ButtonForm onPress={closeModal} title="Selecionar" />
       </Footer>
     </Container>
   );
