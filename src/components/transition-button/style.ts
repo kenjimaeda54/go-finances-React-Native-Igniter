@@ -1,17 +1,17 @@
 import styled, {css} from 'styled-components/native';
-import {TouchableOpacity} from 'react-native';
+import {RectButton} from 'react-native-gesture-handler';
 import {Feather} from '@expo/vector-icons';
 import {RFValue} from 'react-native-responsive-fontsize';
 import theme from '../../global/theme';
 
-type ContainerProps = {
+interface ContainerProps {
   isActivity: boolean;
   type: 'up' | 'down';
-};
+}
 
-type ColorIcon = {
+interface ColorIcon {
   type: 'up' | 'down';
-};
+}
 
 function backColor(color: string, activity: boolean) {
   const background = {
@@ -29,14 +29,19 @@ function backColor(color: string, activity: boolean) {
   return colorSelected(color, activity);
 }
 
-export const Container = styled(TouchableOpacity)<ContainerProps>`
-  flex-direction: row;
-  width: 46%;
-  padding: 18px 0;
+export const Container = styled.View<ContainerProps>`
   border-width: ${({isActivity}) => (isActivity ? 0 : 1.5)}px;
   background-color: ${({isActivity, type}) => backColor(type, isActivity)};
   color: ${({theme}) => theme.colors.subTitle};
   border-style: solid;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Button = styled(RectButton)`
+  flex-direction: row;
+  width: 46%;
+  padding: 18px 0;
   align-items: center;
   justify-content: center;
 `;

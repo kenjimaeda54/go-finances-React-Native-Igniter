@@ -13,18 +13,18 @@ import {
   Footer,
 } from './styles';
 
-type Category = {
+interface Category {
   key: string;
   name: string;
-};
+}
 
-type CategorySelectedProps = {
+interface CategorySelectedProps {
   setCategory: (
     category: Category,
-  ) => void /* ao inves de passar React.State posso passsar assim */;
+  ) => void /* ao invés de passar React.State posso passar assim */;
   closeModal: () => void;
   category: Category;
-};
+}
 
 export function CategorySelected({
   setCategory,
@@ -35,6 +35,10 @@ export function CategorySelected({
     setCategory(item);
   }
 
+  /*Para usar os botoes do react-native gesture handler precisa usar a view 
+GestureHandlerRootView quando estamos lindando com efeito de modal.
+Concluindo s buttonForm e quem fecha o modal,então a view em torno precisa ser
+uma view GestureHandlerRootView */
   return (
     <Container>
       <Header>

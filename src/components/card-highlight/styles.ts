@@ -3,9 +3,9 @@ import {Feather} from '@expo/vector-icons';
 import {RFValue} from 'react-native-responsive-fontsize';
 import theme from '../../global/theme';
 
-type TypeProps = {
+interface TypeProps {
   type: 'up' | 'down' | 'total';
-};
+}
 
 function colorIcon(type: string) {
   const color = {

@@ -3,9 +3,9 @@ import {Feather} from '@expo/vector-icons';
 import {RFValue} from 'react-native-responsive-fontsize';
 import theme from '../../global/theme';
 
-type AmountProps = {
+interface AmountProps {
   type: 'positive' | 'negative';
-};
+}
 
 export const Container = styled.View`
   background-color: ${({theme}) => theme.colors.shape};

@@ -1,5 +1,4 @@
 import React from 'react';
-import {View, Text} from 'react-native';
 import {
   Container,
   TitleCard,
@@ -11,22 +10,22 @@ import {
   Date,
 } from './style';
 
-type CategoryProps = {
+interface CategoryProps {
   name: string;
   icon: string;
-};
+}
 
-export type TransitionCardListProps = {
+export interface TransitionCardListProps {
   type: 'positive' | 'negative';
   title: string;
   amount: string;
   category: CategoryProps;
   date: string;
-};
+}
 
-type TransitionCardProps = {
+interface TransitionCardProps {
   data: TransitionCardListProps;
-};
+}
 
 export function TransitionCard({data}: TransitionCardProps) {
   return (

@@ -1,8 +1,8 @@
 import {RFValue} from 'react-native-responsive-fontsize';
-import {TouchableOpacity} from 'react-native';
+import {RectButton} from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 
-export const Container = styled(TouchableOpacity)`
+export const Container = styled(RectButton)`
   width: 100%;
   border-radius: 5px;
   height: ${RFValue(56)}px;

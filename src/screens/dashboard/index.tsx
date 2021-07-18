@@ -1,10 +1,10 @@
 import React from 'react';
 import {CardHighlight} from '../../components/card-highlight';
+import {BorderlessButton} from 'react-native-gesture-handler';
 import {
   TransitionCard,
   TransitionCardListProps,
 } from '../../components/transition-card';
-import {getBottomSpace} from 'react-native-iphone-x-helper';
 import {
   Container,
   Header,
@@ -21,9 +21,9 @@ import {
   TransitionCardList,
 } from './styles';
 
-export type DataProps = TransitionCardListProps & {
+export interface DataProps extends TransitionCardListProps {
   id: string;
-};
+}
 
 export function Dashboard() {
   const data: DataProps[] = [
@@ -78,7 +78,9 @@ export function Dashboard() {
               <UserName>Ricardo</UserName>
             </User>
           </UserInfo>
-          <Icon name="power" />
+          <BorderlessButton onPress={() => {}}>
+            <Icon name="power" />
+          </BorderlessButton>
         </UserWrap>
       </Header>
       <CardHighlights>

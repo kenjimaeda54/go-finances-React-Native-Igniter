@@ -1,13 +1,17 @@
 import {RFValue} from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import {Feather} from '@expo/vector-icons';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import theme from '../../global/theme';
 
 type CategoryProps = {
   isAcitivy: boolean;
 };
 
-export const Container = styled.View`
+/*para usar os botoes do react-native gesture handler precisa usar a view 
+
+GestureHandlerRootView quando estamos lindando com efeito de botão*/
+export const Container = styled(GestureHandlerRootView)`
   flex: 1;
 `;
 

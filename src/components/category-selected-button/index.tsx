@@ -1,10 +1,10 @@
 import React from 'react';
 import {Container, Icon, Title} from './style';
-import {TouchableOpacityProps} from 'react-native';
+import {RectButtonProps} from 'react-native-gesture-handler';
 
-type CategorySelectedProps = TouchableOpacityProps & {
+interface CategorySelectedProps extends RectButtonProps {
   title: string;
-};
+}
 
 export function CategorySelectedButton({
   title,

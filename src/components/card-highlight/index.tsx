@@ -9,12 +9,12 @@ import {
   Description,
 } from './styles';
 
-type CardHighlightProps = {
+interface CardHighlightProps {
   title: string;
   type: 'up' | 'down' | 'total';
   amount: string;
   description: string;
-};
+}
 
 const icon = {
   up: 'arrow-up-circle',
