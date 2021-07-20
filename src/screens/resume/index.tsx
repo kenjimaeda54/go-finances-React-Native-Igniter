@@ -1,6 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HistoryCard from '../../components/history-card';
+import {useFocusEffect} from '@react-navigation/native';
+import {ActivityIndicator} from 'react-native';
 import {addMonths, subMonths, format} from 'date-fns';
 import {ptBR} from 'date-fns/locale';
 import {
@@ -13,6 +15,8 @@ import {
   MonthIconSelected,
   Icon,
   Month,
+  ContainerLoader,
+  TextLoader,
 } from './style';
 import {categories} from '../../util/categories';
 import {useTheme} from 'styled-components';
@@ -31,12 +35,14 @@ interface TotalCategories {
 }
 
 export function Resume() {
-  const [dateSelected, setDateSelected] = useState(new Date());
   const {fonts, colors} = useTheme();
+  const [isLoading, setIsLoading] = useState(false);
+  const [dateSelected, setDateSelected] = useState(new Date());
   const [totalByCategories, setTotalByCategories] = useState<TotalCategories[]>(
     [],
   );
   function changeDate(date: 'next' | 'prev') {
+    setIsLoading(true);
     if (date === 'next') {
       setDateSelected(addMonths(dateSelected, 1));
     } else {
@@ -45,6 +51,7 @@ export function Resume() {
   }
 
   async function fetchCategory() {
+    setIsLoading(true);
     const dataKey = '@gofinances:transitions';
     const register = await AsyncStorage.getItem(dataKey);
     const currentRegister: TransitionCardListProps[] = register
@@ -94,11 +101,14 @@ export function Resume() {
       }
     });
     setTotalByCategories(totalCategory);
+    setIsLoading(false);
   }
 
-  useEffect(() => {
-    fetchCategory();
-  }, [dateSelected]);
+  useFocusEffect(
+    useCallback(() => {
+      fetchCategory();
+    }, [dateSelected]),
+  );
 
   return (
     <Container>
@@ -106,62 +116,69 @@ export function Resume() {
         <Title>Resumo por categoria</Title>
       </Header>
 
-      <Content
-        contentContainerStyle={{
-          paddingHorizontal: 24,
-          paddingBottom: useBottomTabBarHeight(),
-          /*quando estiver trabalhando com  stack bootom e scroll,ideia colocar 
-          essa propriedade do stackBottom*/
-        }}>
-        <MonthSelected>
-          <MonthIconSelected onPress={() => changeDate('prev')}>
-            <Icon name="chevron-left" />
-            {/*se der erro de tipagem olha se esta no styled component (Feather)`` , sem o `` pode gerar erro de tipagem */}
-          </MonthIconSelected>
+      {isLoading ? (
+        <ContainerLoader>
+          <ActivityIndicator size="large" color={colors.primary} />
+          <TextLoader> Carregando... </TextLoader>
+        </ContainerLoader>
+      ) : (
+        <Content
+          contentContainerStyle={{
+            paddingHorizontal: 24,
+            paddingBottom: useBottomTabBarHeight(),
+            /*quando estiver trabalhando com  stack bootom e scroll,ideia colocar 
+           essa propriedade do stackBottom*/
+          }}>
+          <MonthSelected>
+            <MonthIconSelected onPress={() => changeDate('prev')}>
+              <Icon name="chevron-left" />
+              {/*se der erro de tipagem olha se esta no styled component (Feather)`` , sem o `` pode gerar erro de tipagem */}
+            </MonthIconSelected>
 
-          <Month>
-            {/*caso comece a gerar erro de render formata a data*/}
-            {format(dateSelected, 'MMM, yyyy', {
-              locale: ptBR,
-            })}
-          </Month>
+            <Month>
+              {/*caso comece a gerar erro de render formata a data*/}
+              {format(dateSelected, 'MMM, yyyy', {
+                locale: ptBR,
+              })}
+            </Month>
 
-          <MonthIconSelected onPress={() => changeDate('next')}>
-            <Icon name="chevron-right" />
-          </MonthIconSelected>
-        </MonthSelected>
-        <ContainerChart>
-          <VictoryPie
-            style={{
-              labels: {
-                fontSize: RFValue(16),
-                fontFamily: fonts.bold,
-                fontWeight: 700,
-                lineHeight: RFValue(24),
-                fill: colors.shape,
-                /*aqui e um svg então nao e color sim fill  */
-              },
-            }}
-            labelRadius={70}
-            colorScale={totalByCategories.map(colors => colors.color)}
-            data={totalByCategories}
-            x="percentExpensive"
-            y="total"
-          />
-        </ContainerChart>
-        {/*x e o y recebe o nome da variável,para referenciar no gráfico.
-        Sera o mesmo nome que esta dentro do seu data=[{}] 
-        Por exemplo total e o nome da variável que armazena o valor 
-        que desejamos exibir*/}
-        {totalByCategories.map(category => (
-          <HistoryCard
-            key={category.id}
-            title={category.name}
-            color={category.color}
-            amount={category.totalFormatted}
-          />
-        ))}
-      </Content>
+            <MonthIconSelected onPress={() => changeDate('next')}>
+              <Icon name="chevron-right" />
+            </MonthIconSelected>
+          </MonthSelected>
+          <ContainerChart>
+            <VictoryPie
+              style={{
+                labels: {
+                  fontSize: RFValue(16),
+                  fontFamily: fonts.bold,
+                  fontWeight: 700,
+                  lineHeight: RFValue(24),
+                  fill: colors.shape,
+                  /*aqui e um svg então nao e color sim fill  */
+                },
+              }}
+              labelRadius={70}
+              colorScale={totalByCategories.map(colors => colors.color)}
+              data={totalByCategories}
+              x="percentExpensive"
+              y="total"
+            />
+          </ContainerChart>
+          {/*x e o y recebe o nome da variável,para referenciar no gráfico.
+         Sera o mesmo nome que esta dentro do seu data=[{}] 
+         Por exemplo total e o nome da variável que armazena o valor 
+         que desejamos exibir*/}
+          {totalByCategories.map(category => (
+            <HistoryCard
+              key={category.id}
+              title={category.name}
+              color={category.color}
+              amount={category.totalFormatted}
+            />
+          ))}
+        </Content>
+      )}
     </Container>
   );
 }

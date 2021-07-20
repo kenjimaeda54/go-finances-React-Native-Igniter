@@ -1,6 +1,7 @@
 import React from 'react';
 import {ThemeProvider} from 'styled-components';
 import {NavigationContainer} from '@react-navigation/native';
+import {StatusBar} from 'react-native';
 import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
 import theme from './src/global/theme';
@@ -13,6 +14,7 @@ import {
   Poppins_500Medium,
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
+import SingIn from './src/screens/sing-in';
 
 export default function App() {
   const [fontsLoading] = useFonts({
@@ -27,7 +29,8 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-        <AppRoutes />
+        <StatusBar barStyle="light-content" />
+        <SingIn />
       </NavigationContainer>
     </ThemeProvider>
   );
