@@ -1,21 +1,48 @@
 import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HistoryCard from '../../components/history-card';
-import {Container, Header, Title, Content} from './style';
+import {addMonths, subMonths, format} from 'date-fns';
+import {ptBR} from 'date-fns/locale';
+import {
+  Container,
+  Header,
+  Title,
+  Content,
+  ContainerChart,
+  MonthSelected,
+  MonthIconSelected,
+  Icon,
+  Month,
+} from './style';
 import {categories} from '../../util/categories';
+import {useTheme} from 'styled-components';
+import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+import {VictoryPie} from 'victory-native';
 import {TransitionCardListProps} from '../../components/transition-card';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 interface TotalCategories {
   id: string;
   name: string;
   color: string;
-  total: string;
+  total: number;
+  totalFormatted: string;
+  percentExpensive: string;
 }
 
 export function Resume() {
+  const [dateSelected, setDateSelected] = useState(new Date());
+  const {fonts, colors} = useTheme();
   const [totalByCategories, setTotalByCategories] = useState<TotalCategories[]>(
     [],
   );
+  function changeDate(date: 'next' | 'prev') {
+    if (date === 'next') {
+      setDateSelected(addMonths(dateSelected, 1));
+    } else {
+      setDateSelected(subMonths(dateSelected, 1));
+    }
+  }
 
   async function fetchCategory() {
     const dataKey = '@gofinances:transitions';
@@ -24,8 +51,16 @@ export function Resume() {
       ? JSON.parse(register)
       : [];
     const expensive = currentRegister.filter(
-      value => value.type === 'negative',
+      value =>
+        value.type === 'negative' &&
+        dateSelected.getMonth() === new Date(value.date).getMonth() &&
+        dateSelected.getFullYear() === new Date(value.date).getFullYear(),
     );
+    /* se colocar  arrow function => { preciso do retorno para funcionar} 
+    agora se nao colocar entre os colchetes o retorno fica implícito */
+    const expensiveTotal = currentRegister.reduce((acc, item) => {
+      return acc + Number(item.amount);
+    }, 0);
 
     const totalCategory: TotalCategories[] = [];
 
@@ -38,16 +73,23 @@ export function Resume() {
         }
       });
       if (categorySum > 0) {
-        const total = categorySum.toLocaleString('pt-Br', {
+        const totalFormatted = categorySum.toLocaleString('pt-Br', {
           style: 'currency',
           currency: 'BRL',
         });
 
+        const percentExpensive = `${(
+          (categorySum / expensiveTotal) *
+          100
+        ).toFixed(0)}%`;
+
         totalCategory.push({
           id: category.key,
           name: category.name,
-          total,
+          totalFormatted,
+          total: categorySum,
           color: category.color,
+          percentExpensive,
         });
       }
     });
@@ -56,7 +98,7 @@ export function Resume() {
 
   useEffect(() => {
     fetchCategory();
-  }, []);
+  }, [dateSelected]);
 
   return (
     <Container>
@@ -64,13 +106,59 @@ export function Resume() {
         <Title>Resumo por categoria</Title>
       </Header>
 
-      <Content>
+      <Content
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          paddingBottom: useBottomTabBarHeight(),
+          /*quando estiver trabalhando com  stack bootom e scroll,ideia colocar 
+          essa propriedade do stackBottom*/
+        }}>
+        <MonthSelected>
+          <MonthIconSelected onPress={() => changeDate('prev')}>
+            <Icon name="chevron-left" />
+            {/*se der erro de tipagem olha se esta no styled component (Feather)`` , sem o `` pode gerar erro de tipagem */}
+          </MonthIconSelected>
+
+          <Month>
+            {/*caso comece a gerar erro de render formata a data*/}
+            {format(dateSelected, 'MMM, yyyy', {
+              locale: ptBR,
+            })}
+          </Month>
+
+          <MonthIconSelected onPress={() => changeDate('next')}>
+            <Icon name="chevron-right" />
+          </MonthIconSelected>
+        </MonthSelected>
+        <ContainerChart>
+          <VictoryPie
+            style={{
+              labels: {
+                fontSize: RFValue(16),
+                fontFamily: fonts.bold,
+                fontWeight: 700,
+                lineHeight: RFValue(24),
+                fill: colors.shape,
+                /*aqui e um svg então nao e color sim fill  */
+              },
+            }}
+            labelRadius={70}
+            colorScale={totalByCategories.map(colors => colors.color)}
+            data={totalByCategories}
+            x="percentExpensive"
+            y="total"
+          />
+        </ContainerChart>
+        {/*x e o y recebe o nome da variável,para referenciar no gráfico.
+        Sera o mesmo nome que esta dentro do seu data=[{}] 
+        Por exemplo total e o nome da variável que armazena o valor 
+        que desejamos exibir*/}
         {totalByCategories.map(category => (
           <HistoryCard
             key={category.id}
             title={category.name}
             color={category.color}
-            amount={category.total}
+            amount={category.totalFormatted}
           />
         ))}
       </Content>

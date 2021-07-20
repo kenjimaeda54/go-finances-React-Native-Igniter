@@ -66,7 +66,7 @@ export function Dashboard() {
           .map(transaction => new Date(transaction.date).getTime()),
       ),
     );
-
+    /* Math.max.apply retorna maior numero de um array */
     return `${lastTransaction.getDate()} de ${lastTransaction.toLocaleString(
       'pt-BR',
       {month: 'long'},
