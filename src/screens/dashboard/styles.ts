@@ -93,3 +93,17 @@ export const TransitionCardList = styled(
   contentContainerStyle: {paddingBottom: getBottomSpace()},
   showsVerticalScrollIndicator: false,
 })``;
+
+export const ContainerLoader = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TextLoader = styled.Text`
+  margin-top: 5px;
+  font-family: ${({theme}) => theme.fonts.regular};
+  line-height: ${RFValue(21)}px;
+  font-size: ${RFValue(14)}px;
+  color: ${({theme}) => theme.colors.attention};
+`;

@@ -1,4 +1,5 @@
 import React from 'react';
+import {categories} from '../../util/categories';
 import {
   Container,
   TitleCard,
@@ -10,16 +11,11 @@ import {
   Date,
 } from './style';
 
-interface CategoryProps {
-  name: string;
-  icon: string;
-}
-
 export interface TransitionCardListProps {
   type: 'positive' | 'negative';
-  title: string;
+  name: string;
   amount: string;
-  category: CategoryProps;
+  category: string;
   date: string;
 }
 
@@ -28,17 +24,27 @@ interface TransitionCardProps {
 }
 
 export function TransitionCard({data}: TransitionCardProps) {
+  /*category vai retornar category[
+    {objeto que desejo}
+  ]  */
+  /* [category ] e um destruction, ao filtrar o array de objetos
+  com nome categories, vai retornar um array com os valores correspondentes,
+  ao colocar entre chaves([]) pego  so os valores internos.
+  Para type script entender tipagem 
+  e necessário realizar primeiro essa operação,se nao vai dar 
+  opção apenas de map,filter... ja que  category sera um array */
+  const [category] = categories.filter(value => data.category === value.key);
   return (
     <Container>
-      <TitleCard>{data.title}</TitleCard>
+      <TitleCard>{data.name}</TitleCard>
       <Amount type={data.type}>
         {data.type === 'negative' && '- '}
         {data.amount}
       </Amount>
       <Footer>
         <CategoryCard>
-          <Icon name={data.category.icon} />
-          <Description>{data.category.name}</Description>
+          <Icon name={category.icon} />
+          <Description>{category.name}</Description>
         </CategoryCard>
         <Date>{data.date}</Date>
       </Footer>

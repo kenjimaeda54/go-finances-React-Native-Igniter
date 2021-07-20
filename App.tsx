@@ -1,6 +1,8 @@
 import React from 'react';
 import {ThemeProvider} from 'styled-components';
 import {NavigationContainer} from '@react-navigation/native';
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR';
 import theme from './src/global/theme';
 import 'react-native-gesture-handler';
 import AppLoading from 'expo-app-loading';

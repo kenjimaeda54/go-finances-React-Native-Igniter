@@ -51,7 +51,7 @@ export function Register() {
   const dataKey = '@gofinances:transitions';
   const navigation = useNavigation();
 
-  function handleTransitionSelected(type: 'up' | 'down') {
+  function handleTransitionSelected(type: 'positive' | 'negative') {
     setTransitionSelected(type);
   }
 
@@ -75,8 +75,8 @@ export function Register() {
       id: `${uuid.v4()}`,
       name: form.name,
       amount: form.amount,
-      transition: transitionSelected,
-      category: category.name,
+      type: transitionSelected,
+      category: category.key,
       date: new Date(),
     };
 
@@ -131,14 +131,14 @@ export function Register() {
             <ButtonTransition>
               <TransitionButton
                 description="Income"
-                onPress={() => handleTransitionSelected('up')}
-                isActivity={transitionSelected === 'up'}
+                onPress={() => handleTransitionSelected('positive')}
+                isActivity={transitionSelected === 'positive'}
                 type="up"
               />
               <TransitionButton
                 description="Income"
-                onPress={() => handleTransitionSelected('down')}
-                isActivity={transitionSelected === 'down'}
+                onPress={() => handleTransitionSelected('negative')}
+                isActivity={transitionSelected === 'negative'}
                 type="down"
               />
             </ButtonTransition>
