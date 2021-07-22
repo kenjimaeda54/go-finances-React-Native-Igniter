@@ -84,7 +84,7 @@ export function CategorySelected({
   
 
  /*------------------- */
-```typescript
+
 export function Register() {
   const [transitionSelected, setTransitionSelected] = useState('');
   const [changeModal, setChangeModal] = useState(false);
@@ -180,7 +180,7 @@ const schema = Yup.object().shape({
     .required('Preço e obrigatório'),
 });
 ```
-```jx
+```jsx
 const {
     control,
     handleSubmit,
