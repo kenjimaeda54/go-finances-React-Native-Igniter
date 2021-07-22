@@ -10,7 +10,7 @@ import {Resume} from '../screens/resume';
 
 const {Screen, Navigator} = createBottomTabNavigator();
 
-export default function AppRoutes() {
+export function AppRoutes() {
   const {colors, fonts} = useTheme();
   /*foi possível pegar pela determinação em styled.d.ts  */
   return (

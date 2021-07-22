@@ -19,6 +19,7 @@ import {
   FieldsForm,
   ButtonTransition,
 } from './styles';
+import {useAuth} from '../../hooks';
 
 type RegisterProps = {
   amount: string;
@@ -34,6 +35,7 @@ const schema = Yup.object().shape({
 });
 
 export function Register() {
+  const {user} = useAuth();
   const [transitionSelected, setTransitionSelected] = useState('');
   const [changeModal, setChangeModal] = useState(false);
   const [category, setCategory] = useState({
@@ -48,7 +50,7 @@ export function Register() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const dataKey = '@gofinances:transitions';
+  const dataKey = `@gofinances:transitions_user:${user.id}`;
   const navigation = useNavigation();
 
   function handleTransitionSelected(type: 'positive' | 'negative') {

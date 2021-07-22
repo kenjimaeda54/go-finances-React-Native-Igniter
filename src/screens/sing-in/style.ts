@@ -1,4 +1,4 @@
-import {RFValue} from 'react-native-responsive-fontsize';
+import {RFValue, RFPercentage} from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -38,4 +38,10 @@ export const Footer = styled.View`
   width: 100%;
   height: 30%;
   background-color: ${({theme}) => theme.colors.secondary};
+  padding: 0 48px;
+`;
+
+export const FooterWrap = styled.View`
+  margin-top: ${RFPercentage(-4)}px;
+  align-items: center;
 `;

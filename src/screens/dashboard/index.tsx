@@ -4,6 +4,7 @@ import {BorderlessButton} from 'react-native-gesture-handler';
 import {useFocusEffect} from '@react-navigation/native';
 import {Alert, ActivityIndicator} from 'react-native';
 import {useTheme} from 'styled-components';
+import {useAuth} from '../../hooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   TransitionCard,
@@ -47,23 +48,29 @@ do tipo expensive [{}] tipado assim consigo pegar as propriedades*/
 
 export function Dashboard() {
   const {colors} = useTheme();
+  const {singOut, user} = useAuth();
   const [transition, setTransition] = useState<DataProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [amountTotal, setAmountTotal] = useState<HighlighAmount>(
     {} as HighlighAmount,
   );
-  const dataKey = '@gofinances:transitions';
+  const dataKey = `@gofinances:transitions_user:${user.id}`;
 
   function getLastTransactionDate(
     collection: DataProps[],
     type: 'positive' | 'negative',
   ) {
+    const transaction = collection.filter(
+      transaction => transaction.type === type,
+    );
+    if (transaction.length === 0) {
+      return 0;
+    }
+
     const lastTransaction = new Date(
       Math.max.apply(
         Math,
-        collection
-          .filter(transaction => transaction.type === type)
-          .map(transaction => new Date(transaction.date).getTime()),
+        transaction.map(transaction => new Date(transaction.date).getTime()),
       ),
     );
     /* Math.max.apply retorna maior numero de um array */
@@ -123,7 +130,10 @@ export function Dashboard() {
       'negative' /*  as atualizações recentes, meu data precisar ser puro
                          os formatos nao sao puros*/,
     );
-    const totalLastTransition = `01 a ${lastTransitionExpensive}`;
+    const totalLastTransition =
+      lastTransitionExpensive === 0
+        ? 'Nao ha transação'
+        : `01 a ${lastTransitionExpensive}`;
     let totalAmount = entryTotal - expensiveTotal;
     setAmountTotal({
       entry: {
@@ -131,14 +141,20 @@ export function Dashboard() {
           style: 'currency',
           currency: 'BRL',
         }),
-        lastTransition: lastTransitionEntries,
+        lastTransition:
+          lastTransitionEntries === 0
+            ? 'Nao possui transações'
+            : `Ultima entrada dia  ${lastTransitionEntries}`,
       },
       expensive: {
         amount: expensiveTotal.toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL',
         }),
-        lastTransition: lastTransitionExpensive,
+        lastTransition:
+          lastTransitionExpensive === 0
+            ? 'Nao ha transações'
+            : `Ultima saida dia ${lastTransitionExpensive} `,
       },
       total: {
         amount: totalAmount.toLocaleString('pt-BR', {
@@ -171,15 +187,15 @@ export function Dashboard() {
               <UserInfo>
                 <Photo
                   source={{
-                    uri: 'https://avatars.githubusercontent.com/u/31631601?v=4',
+                    uri: user.picture,
                   }}
                 />
                 <User>
                   <UserGreeting>Ola,</UserGreeting>
-                  <UserName>Ricardo</UserName>
+                  <UserName>{user.name}</UserName>
                 </User>
               </UserInfo>
-              <BorderlessButton onPress={() => {}}>
+              <BorderlessButton onPress={singOut}>
                 <Icon name="power" />
               </BorderlessButton>
             </UserWrap>
@@ -188,13 +204,13 @@ export function Dashboard() {
             <CardHighlight
               amount={amountTotal.entry.amount}
               title="Entradas"
-              description={`Ultima entrada dia ${amountTotal.entry.lastTransition}`}
+              description={amountTotal.entry.lastTransition}
               type="up"
             />
             <CardHighlight
               amount={amountTotal.expensive.amount}
               title="Saídas"
-              description={`Ultima saida dia ${amountTotal.expensive.lastTransition}`}
+              description={amountTotal.expensive.lastTransition}
               type="down"
             />
             <CardHighlight

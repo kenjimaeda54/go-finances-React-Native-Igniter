@@ -24,6 +24,7 @@ import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import {VictoryPie} from 'victory-native';
 import {TransitionCardListProps} from '../../components/transition-card';
 import {RFValue} from 'react-native-responsive-fontsize';
+import {useAuth} from '../../hooks';
 
 interface TotalCategories {
   id: string;
@@ -35,6 +36,7 @@ interface TotalCategories {
 }
 
 export function Resume() {
+  const {user} = useAuth();
   const {fonts, colors} = useTheme();
   const [isLoading, setIsLoading] = useState(false);
   const [dateSelected, setDateSelected] = useState(new Date());
@@ -52,7 +54,7 @@ export function Resume() {
 
   async function fetchCategory() {
     setIsLoading(true);
-    const dataKey = '@gofinances:transitions';
+    const dataKey = `@gofinances:transitions_user:${user.id}`;
     const register = await AsyncStorage.getItem(dataKey);
     const currentRegister: TransitionCardListProps[] = register
       ? JSON.parse(register)
