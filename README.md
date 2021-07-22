@@ -64,7 +64,7 @@ de outra função ,pertence ao Register</br>
 normalmente setamos com React.State...
 Mameira simplificada de tipa e usando setCategory:()=>void
 
-```jsx
+```typescript
   interface CategorySelectedProps {
   setCategory: (category: Category,) => void
   /* ao invés de passar React.State posso passar assim */;
@@ -164,7 +164,7 @@ com um Controller, e no caso os name,sera a referencia para os form ou seja, </b
 no exemplo abaixo o form.amount, vem da referencia name.Nela que ficar os </br>
 valores colocados pelo usuário no input
 
-```jsx
+```typescript
 const schema = Yup.object().shape({
   name: Yup.string().required('Nome e obrigatório'),
   amount: Yup.number()
@@ -213,7 +213,7 @@ export function InputForm({control, name, error, ...rest}: InputFormProps) {
 Para facilitar operações data, usei o [date_fns](https://date-fns.org/)</br>
 Olha exemplo abaixo como e fácil somar e subtrair,meses
 
-```jsx
+```typescript
 function changeDate(date: 'next' | 'prev') {
   setIsLoading(true);
   if (date === 'next') {
@@ -242,7 +242,7 @@ eixos x e y, dentro do data,que no casso é um array.
 Exemplo meu array tem uma variável com nome total, no caso do gráfico de pizza, x e y ser que ser números ou string,em total é o valor do numero correspondente ao amount.
 Para colocar os label dentro do gráfico usei labelRadius
 
-```jsx
+```typescript
 <VictoryPie
   style={{
     labels: {
