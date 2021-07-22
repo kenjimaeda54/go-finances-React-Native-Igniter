@@ -277,15 +277,16 @@ Para colocar os label dentro do gráfico usei labelRadius
 - Hooks
 - styled component
 - Atomics
-- Media Screen
 - Tipagem
 
 ### Dependencias
 
 - [App loading](https://docs.expo.io/versions/latest/sdk/app-loading/)
 - [Google Fonts](https://docs.expo.io/guides/using-custom-fonts/#using-a-google-font)
-- [Axios](https://github.com/axios/axios)
-- [React Native](https://reactnavigation.org/docs/getting-started/)
 - [Stack Stack](https://reactnavigation.org/docs/hello-react-navigation)
-- [Graficos SVG](https://github.com/JesperLekland/react-native-svg-charts)
-- [Count Up](https://github.com/vydimitrov/use-count-up)
+- [Victory Pye](https://formidable.com/open-source/victory/docs/native/)
+- [Responsive_Font Size](https://github.com/heyman333/react-native-responsive-fontsize)
+- [Hook Fomr](https://react-hook-form.com/)
+- [Ract Native uuid](https://github.com/eugenehp/react-native-uuid)
+- [Svg Transformer](https://github.com/kristerkari/react-native-svg-transformer)
+- [Inline Babel Dotenev](https://github.com/brysgo/babel-plugin-inline-dotenv)
