@@ -33,8 +33,8 @@ Projeto de finanças, Igniter
 ![Git](https://img.shields.io/badge/-Git-F05032?style=flat-square&logo=git&logoColor=white)
 ![React Native](https://img.shields.io/badge/-reactnative-212121?style=flat-square&logo=reactnative&logoColor=white)
 ![typescript](https://img.shields.io/badge/-typescript-EFD81D?style=flat-square&logo=typescript&logoColor=black)
-![styledComponent](https://img.shields.io/badge/-typescript-EFD81D?style=flat-square&logo=styledComponent&logoColor=black)
-![hooksForm](https://img.shields.io/badge/-typescript-EFD81D?style=flat-square&logo=hooksForm&logoColor=black)
+![styledComponent](https://img.shields.io/badge/-styledComponent-EFD81D?style=flat-square&logo=styledComponent&logoColor=black)
+![hooksForm](https://img.shields.io/badge/-hooksForm-EFD81D?style=flat-square&logo=hooksForm&logoColor=black)
 
 ## O que eu aprendi
 
