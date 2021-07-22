@@ -71,6 +71,9 @@ Mameira simplificada de tipa e usando setCategory:()=>void
   closeModal: () => void;
   category: Category;
 }
+
+```
+```jsx
 export function CategorySelected({
   setCategory,
   closeModal,
@@ -78,9 +81,10 @@ export function CategorySelected({
 }: CategorySelectedProps){
  return()
  }
+  
 
  /*------------------- */
-
+```typescript
 export function Register() {
   const [transitionSelected, setTransitionSelected] = useState('');
   const [changeModal, setChangeModal] = useState(false);
@@ -88,6 +92,9 @@ export function Register() {
     key: 'Categoria',
     name: 'category'
   }
+  
+```
+```jsx
   return(
     <Modal visible={changeModal}>
           <CategorySelected
@@ -172,7 +179,8 @@ const schema = Yup.object().shape({
     .positive('Precisa ser números positivos')
     .required('Preço e obrigatório'),
 });
-
+```
+```jx
 const {
     control,
     handleSubmit,
@@ -222,6 +230,8 @@ function changeDate(date: 'next' | 'prev') {
     setDateSelected(subMonths(dateSelected, 1));
   }
 }
+```
+```jsx
 
 <MonthSelected>
             <MonthIconSelected onPress={() => changeDate('prev')}>
@@ -242,7 +252,7 @@ eixos x e y, dentro do data,que no casso é um array.
 Exemplo meu array tem uma variável com nome total, no caso do gráfico de pizza, x e y ser que ser números ou string,em total é o valor do numero correspondente ao amount.
 Para colocar os label dentro do gráfico usei labelRadius
 
-```typescript
+```jsx
 <VictoryPie
   style={{
     labels: {
