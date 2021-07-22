@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as AuthSession from 'expo-auth-session';
 
 const {CLIENT_ID} = process.env;
+const {REDIRECT_URI} = process.env;
 
 interface ProviderProps {
   children: ReactNode;
@@ -44,7 +45,6 @@ function Provider({children}: ProviderProps) {
 
   async function singInGoogle() {
     try {
-      const REDIRECT_URI = 'https://auth.expo.io/@kenji1242/gofinances';
       const RESPONSE_TYPE = 'token';
       const SCOPE = encodeURI('profile email');
       /* preciso fazer assim por causa do espaço entre as string */
