@@ -2,7 +2,7 @@
 
 Aplicativo controle de fianças
 
-# clima-tempo-projeto.
+# Go finances
 
 Projeto de finanças, Igniter
 
@@ -33,8 +33,8 @@ Projeto de finanças, Igniter
 ![Git](https://img.shields.io/badge/-Git-F05032?style=flat-square&logo=git&logoColor=white)
 ![React Native](https://img.shields.io/badge/-reactnative-212121?style=flat-square&logo=reactnative&logoColor=white)
 ![typescript](https://img.shields.io/badge/-typescript-EFD81D?style=flat-square&logo=typescript&logoColor=black)
-![styledComponent](https://img.shields.io/badge/-typescript-EFD81D?style=flat-square&logo=styledComponent&logoColor=black)
-![hooksForm](https://img.shields.io/badge/-typescript-EFD81D?style=flat-square&logo=hooksForm&logoColor=black)
+![styledComponent](https://img.shields.io/badge/-styledComponent-EFD81D?style=flat-square&logo=styledComponent&logoColor=black)
+![hooksForm](https://img.shields.io/badge/-hooksForm-EFD81D?style=flat-square&logo=hooksForm&logoColor=black)
 
 ## O que eu aprendi
 
@@ -64,13 +64,16 @@ de outra função ,pertence ao Register</br>
 normalmente setamos com React.State...
 Mameira simplificada de tipa e usando setCategory:()=>void
 
-```jsx
+```typescript
   interface CategorySelectedProps {
   setCategory: (category: Category,) => void
   /* ao invés de passar React.State posso passar assim */;
   closeModal: () => void;
   category: Category;
 }
+
+```
+```jsx
 export function CategorySelected({
   setCategory,
   closeModal,
@@ -78,6 +81,7 @@ export function CategorySelected({
 }: CategorySelectedProps){
  return()
  }
+  
 
  /*------------------- */
 
@@ -88,6 +92,9 @@ export function Register() {
     key: 'Categoria',
     name: 'category'
   }
+  
+```
+```jsx
   return(
     <Modal visible={changeModal}>
           <CategorySelected
@@ -164,7 +171,7 @@ com um Controller, e no caso os name,sera a referencia para os form ou seja, </b
 no exemplo abaixo o form.amount, vem da referencia name.Nela que ficar os </br>
 valores colocados pelo usuário no input
 
-```jsx
+```typescript
 const schema = Yup.object().shape({
   name: Yup.string().required('Nome e obrigatório'),
   amount: Yup.number()
@@ -172,7 +179,8 @@ const schema = Yup.object().shape({
     .positive('Precisa ser números positivos')
     .required('Preço e obrigatório'),
 });
-
+```
+```jsx
 const {
     control,
     handleSubmit,
@@ -213,7 +221,7 @@ export function InputForm({control, name, error, ...rest}: InputFormProps) {
 Para facilitar operações data, usei o [date_fns](https://date-fns.org/)</br>
 Olha exemplo abaixo como e fácil somar e subtrair,meses
 
-```jsx
+```typescript
 function changeDate(date: 'next' | 'prev') {
   setIsLoading(true);
   if (date === 'next') {
@@ -222,6 +230,8 @@ function changeDate(date: 'next' | 'prev') {
     setDateSelected(subMonths(dateSelected, 1));
   }
 }
+```
+```jsx
 
 <MonthSelected>
             <MonthIconSelected onPress={() => changeDate('prev')}>
@@ -267,15 +277,16 @@ Para colocar os label dentro do gráfico usei labelRadius
 - Hooks
 - styled component
 - Atomics
-- Media Screen
 - Tipagem
 
 ### Dependencias
 
 - [App loading](https://docs.expo.io/versions/latest/sdk/app-loading/)
 - [Google Fonts](https://docs.expo.io/guides/using-custom-fonts/#using-a-google-font)
-- [Axios](https://github.com/axios/axios)
-- [React Native](https://reactnavigation.org/docs/getting-started/)
 - [Stack Stack](https://reactnavigation.org/docs/hello-react-navigation)
-- [Graficos SVG](https://github.com/JesperLekland/react-native-svg-charts)
-- [Count Up](https://github.com/vydimitrov/use-count-up)
+- [Victory Pye](https://formidable.com/open-source/victory/docs/native/)
+- [Responsive_Font Size](https://github.com/heyman333/react-native-responsive-fontsize)
+- [Hook Form](https://react-hook-form.com/)
+- [Ract Native uuid](https://github.com/eugenehp/react-native-uuid)
+- [Svg Transformer](https://github.com/kristerkari/react-native-svg-transformer)
+- [Inline Babel Dotenev](https://github.com/brysgo/babel-plugin-inline-dotenv)
