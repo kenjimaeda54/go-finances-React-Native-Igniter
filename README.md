@@ -2,7 +2,7 @@
 
 Aplicativo controle de fianças
 
-# clima-tempo-projeto.
+# Go finances
 
 Projeto de finanças, Igniter
 
