@@ -286,7 +286,7 @@ Para colocar os label dentro do gráfico usei labelRadius
 - [Stack Stack](https://reactnavigation.org/docs/hello-react-navigation)
 - [Victory Pye](https://formidable.com/open-source/victory/docs/native/)
 - [Responsive_Font Size](https://github.com/heyman333/react-native-responsive-fontsize)
-- [Hook Fomr](https://react-hook-form.com/)
+- [Hook Form](https://react-hook-form.com/)
 - [Ract Native uuid](https://github.com/eugenehp/react-native-uuid)
 - [Svg Transformer](https://github.com/kristerkari/react-native-svg-transformer)
 - [Inline Babel Dotenev](https://github.com/brysgo/babel-plugin-inline-dotenv)
