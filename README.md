@@ -279,7 +279,7 @@ Para colocar os label dentro do gráfico usei labelRadius
 - Atomics
 - Tipagem
 
-### Dependencias
+# Dependencias
 
 - [App loading](https://docs.expo.io/versions/latest/sdk/app-loading/)
 - [Google Fonts](https://docs.expo.io/guides/using-custom-fonts/#using-a-google-font)
