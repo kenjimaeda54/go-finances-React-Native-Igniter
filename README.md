@@ -14,7 +14,7 @@ Projeto de finanças, Igniter
   - <a href="#Figma"> Figma </a>
   - <a href='#o-que-eu-aprendi' > Aprendizado </a>
   - <a href='#Feature' > Feature </a>
-  - <a href='#Dependências'> Dependências </a>
+  - <a href='#Dependencias'> Dependências </a>
 
 ## Visão Geral
 
@@ -279,7 +279,7 @@ Para colocar os label dentro do gráfico usei labelRadius
 - Atomics
 - Tipagem
 
-# Dependencias
+## Dependencias
 
 - [App loading](https://docs.expo.io/versions/latest/sdk/app-loading/)
 - [Google Fonts](https://docs.expo.io/guides/using-custom-fonts/#using-a-google-font)
